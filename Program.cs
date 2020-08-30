@@ -17,23 +17,10 @@ namespace ConsoleTheremin {
             while (true) {
                 Console.WriteLine("Current frequency: " + soundWave.frequency);
                 distance = GetDistance(distance);
+
                 if (cntr % 2 == 0)
                     soundWave.frequency = GetNote((int)distance / 10);
 
-                if (Console.KeyAvailable) {
-                    ConsoleKeyInfo key = Console.ReadKey(true);
-                    switch (key.Key) {
-                        case ConsoleKey.Spacebar:
-                            Console.WriteLine("Space bar pressed");
-                            break;
-                        default:
-                            Console.WriteLine("I guess no space bars");
-                            break;
-                    }
-                }
-                else
-                    Console.WriteLine("Key up");
-                
                 soundWave.amplitude = distance < 100 ? 0.1 : 0;
                 cntr++;
             }
