@@ -5,8 +5,10 @@ using System.Linq;
 
 namespace ConsoleTheremin {
     class Program {
+        #region Variables
         static Signal soundWave;
         static SerialPort port;
+        #endregion
         static void Main(string[] args) {
             Initialize();
             Console.WriteLine("Press any key to start the theremin");
@@ -25,12 +27,15 @@ namespace ConsoleTheremin {
                 cntr++;
             }
         }
-
+        /// <summary>
+        /// Sets up the port of the arduino, as well as the signal generator
+        /// </summary>
         private static void Initialize () {
-            soundWave = new Signal();
+            soundWave = new Signal(); //Change this to the other constructor if you want to change any parameters
+            //Also, if you want to set up a different type of wave you can just do soundWave.SignalType = [The signal that you want]
             port = new SerialPort();
-            port.BaudRate = 9600;
-            port.PortName = "COM3";
+            port.BaudRate = 9600; //Set up the range of the arduino port
+            port.PortName = "COM3"; //Change this to the name of your port with the HC-SR04 sensor
             port.Open();
         }
 
@@ -45,7 +50,7 @@ namespace ConsoleTheremin {
                 res = 0;
             }
             Console.WriteLine("Distance: " + res);
-            res = Math.Abs(referenceValue - res) <= 1.1 ? referenceValue : res;
+            res = Math.Abs(referenceValue - res) <= 1.1 ? referenceValue : res; //This is just adjustments for thresholds
             return res;
         }
         /// <summary>
@@ -56,7 +61,7 @@ namespace ConsoleTheremin {
         private static double GetNote(int index) {
             //fn = f0 * (a)^n
             const double fact = 1.0 / 12.0;
-            return 440 * (Math.Pow(Math.Pow(2, fact), index - 2));
+            return 440 * (Math.Pow(Math.Pow(2, fact), index - 2)); // Substract and add to the index depending on your tuning (every number you add/substract is a half step)
         }
 
     }
