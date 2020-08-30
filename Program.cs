@@ -20,7 +20,7 @@ namespace ConsoleTheremin {
                 Console.WriteLine("Current frequency: " + soundWave.frequency);
                 distance = GetDistance(distance);
 
-                if (cntr % 2 == 0)
+                if (cntr % 2 == 0) //This is just adjustments on how fast the frequency will change
                     soundWave.frequency = GetNote((int)distance / 10);
 
                 soundWave.amplitude = distance < 100 ? 0.1 : 0;
